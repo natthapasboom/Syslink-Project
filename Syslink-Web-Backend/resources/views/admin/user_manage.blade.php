@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SyslinkTech | จัดการพนักงาน</title>
+  <link rel = "icon" href = "../../dist/img/SyslinkLogo.png" type = "image/x-icon"> 
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -119,17 +121,16 @@
             </ul>
           </li>
               
-              <li class="nav-item" >
-                <a href=""{{ route('logout') }}"
-                onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();" class="nav-link">
-                  <i class="fas fa-sign-out-alt text-danger" ></i>
-                  <p class="text-danger" >ออกจากระบบ</p>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                </a>
-              </li>
+          <li class="nav-item" style="position:fixed; bottom: 10px;">
+            <a href=" {{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();" class="nav-link">
+              <i class="fas fa-sign-out-alt text-danger"></i>
+              <p class="text-danger">ออกจากระบบ</p>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+            </a>
+          </li>
         </ul>
         
        
@@ -191,13 +192,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.5
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
+ 
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

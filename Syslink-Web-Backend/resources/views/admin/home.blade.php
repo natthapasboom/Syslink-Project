@@ -10,6 +10,7 @@ $result = mysqli_query($connect,$query);
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SyslinkTech | ข้อมูลการเข้า-ออก</title>
+  <link rel = "icon" href = "../../dist/img/SyslinkLogo.png" type = "image/x-icon"> 
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -125,7 +126,7 @@ $result = mysqli_query($connect,$query);
             </li>
 
             <li class="nav-item" style="position:fixed; bottom: 10px;">
-              <a href="" {{ route('logout') }}" onclick="event.preventDefault();
+              <a href=" {{ route('logout') }}" onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();" class="nav-link">
                 <i class="fas fa-sign-out-alt text-danger"></i>
                 <p class="text-danger">ออกจากระบบ</p>
@@ -205,13 +206,7 @@ $result = mysqli_query($connect,$query);
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 3.0.5
-      </div>
-      <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-      reserved.
-    </footer>
+ 
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

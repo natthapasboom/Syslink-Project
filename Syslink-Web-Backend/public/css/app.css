@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+/* @charset "UTF-8"; */
 
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
@@ -12,7 +13,7 @@
   --indigo: #6574cd;
   --purple: #9561e2;
   --pink: #f66d9b;
-  --red: #e3342f;
+  --red: #C8404D;
   --orange: #f6993f;
   --yellow: #ffed4a;
   --green: #38c172;
@@ -26,7 +27,7 @@
   --success: #38c172;
   --info: #6cb2eb;
   --warning: #ffed4a;
-  --danger: #e3342f;
+  --danger: #C8404D;
   --light: #f8f9fa;
   --dark: #343a40;
   --breakpoint-xs: 0;
@@ -5253,14 +5254,14 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #3490dc;
+  color: #C8404D;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #1d68a7;
+  color: #C8404D;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
@@ -7036,7 +7037,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-  background-color: #e3342f !important;
+  background-color: #C8404D !important;
 }
 
 a.bg-danger:hover,
