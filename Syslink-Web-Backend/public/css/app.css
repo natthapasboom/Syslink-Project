@@ -5263,7 +5263,7 @@ input[type=button].btn-block {
   z-index: 2;
   color: #C8404D;
   text-decoration: none;
-  background-color: #e9ecef;
+  background-color: #C8404D;
   border-color: #dee2e6;
 }
 
@@ -5287,7 +5287,7 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #3490dc;
+  background-color: #C8404D;
   border-color: #3490dc;
 }
 

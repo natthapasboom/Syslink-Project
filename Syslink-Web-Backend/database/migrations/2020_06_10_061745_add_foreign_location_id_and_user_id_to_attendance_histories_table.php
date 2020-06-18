@@ -14,10 +14,10 @@ class AddForeignLocationIdAndUserIdToAttendanceHistoriesTable extends Migration
     public function up()
     {
         Schema::table('attendance_histories', function (Blueprint $table) {
-            $table->unsignedBigInteger('location_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('location_id')->after('check_img');
+            $table->unsignedBigInteger('employee_id')->after('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 

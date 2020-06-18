@@ -1,7 +1,16 @@
 <?php 
-$connect = mysqli_connect("localhost","root","","makubmaka_db");
-$query = "SELECT * FROM locations";
-$result = mysqli_query($connect,$query);
+  $connect = mysqli_connect("localhost","root","","makubmaka_db");
+  $query = "
+SELECT h.id as id, e.username as empid , e.name as name, e.surname as surname, h.check_time as time, h.action as action, l.name as location,h.description as description
+FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
+                            INNER JOIN locations l ON h.location_id = l.id";
+
+  $result = mysqli_query($connect,$query);
+
+  if (!$result ?? '') {
+    printf("Error: %s\n", mysqli_error($connect));
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,10 +19,10 @@ $result = mysqli_query($connect,$query);
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SyslinkTech | ข้อมูลการเข้า-ออก</title>
-  <link rel = "icon" href = "../../dist/img/SyslinkLogo.png" type = "image/x-icon"> 
+  <link rel="stylesheet" href="../plugins/ekko-lightbox/ekko-lightbox.css">
+  <link rel="icon" href="../../dist/img/SyslinkLogo.png" type="image/x-icon">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -122,10 +131,16 @@ $result = mysqli_query($connect,$query);
                     <p>จัดการสถานที่</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../edit/roles" class="nav-link">
+                    <i class="fas fa-address-card"></i>
+                    <p>จัดการตำแหน่ง</p>
+                  </a>
+                </li>
               </ul>
             </li>
 
-            <li class="nav-item" style="position:fixed; bottom: 10px;">
+            <li class="nav-item">
               <a href=" {{ route('logout') }}" onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();" class="nav-link">
                 <i class="fas fa-sign-out-alt text-danger"></i>
@@ -167,27 +182,52 @@ $result = mysqli_query($connect,$query);
 
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="attendancetable" class="table table-bordered table-striped ">
+                  <table id="attendancetable" class="table table-bordered table-striped nowrap">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
+
+                        <th></th>
+                        <th>ลำดับ</th>
+                        <th>รหัสพนักงาน</th>
+                        <th>ชื่อ</th>
+                        <th>นามสกุล</th>
+                        <th>วันที่ / เวลา</th>
+                        <th>โปรเจค</th>
+                        <th>ประเภท</th>
+                        <th>รูป</th>
+                        <th>หมายเหตุ</th>
+
+
                       </tr>
                     </thead>
                     <tbody>
                       <?php 
+                      if(mysqli_num_rows($result)>0){
+
                         while ($row = mysqli_fetch_array($result)) {
                           echo '
                           <tr>
+
+
+                            <td></td>
                             <td>'.$row["id"].'</td>
+                            <td>'.$row["empid"].'</td>
                             <td>'.$row["name"].'</td>
-                            <td>'.$row["latitude"].'</td>
-                            <td>'.$row["longitude"].'</td>
+                            <td>'.$row["surname"].'</td>
+                            <td>'.$row["time"].'</td> 
+                            <td>'.$row["location"].'</td>
+                            <td>'.$row["action"].'</td>
+                            <td><a href="https://filmdaily.co/wp-content/uploads/2020/05/coughing-cat-meme-lede.jpg" data-toggle="lightbox" data-title="โปรเจค : '.$row["location"].'">
+                              <i class="fas fa-archive"></i>
+                                </a>
+                            </td>
+                            <td style="max-width: 100px"><span style=" text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">'.$row["description"].'</span></td>
+
                           </tr>
                             ';
                         }
+                      }
+
                       ?>
                     </tbody>
 
@@ -206,7 +246,7 @@ $result = mysqli_query($connect,$query);
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
- 
+
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -230,14 +270,41 @@ $result = mysqli_query($connect,$query);
   <!-- AdminLTE for demo purposes -->
   <script src="../../dist/js/demo.js"></script>
   <!-- page script -->
+  <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+  <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
   <script>
-   
-    $(function () {
-    $("#attendancetable").DataTable({
+    $(document).ready(function () {  
+      $("#attendancetable").DataTable({
+        responsive: {
+            details: {
+                type: 'column',
+                target: 0,
+            }
+        },
+        order: [ 1, 'asc' ],
+        columnDefs: [
+        {
+          className: 'control',
+            orderable: false,
+            targets:   0,
+        },
+        {
+           targets: 1,
+           className: 'text-center'
+        },
+      
+        {
+          targets: 7,
+          className: 'text-center'
+        },
+        {
+          targets: 8,
+          className: 'text-center'
+        }],
+      "info": false,
       language: {
-        "infoEmpty": "",
-        "emptyTable": "ไม่พบข้อมูล",
-        "lengthMenu": "แสดงข้อมูล  _MENU_  รายการ",
+        emptyTable: "ไม่พบข้อมูล",
+        lengthMenu: "แสดงข้อมูล  _MENU_  รายการ",
         paginate: {
             first:    '«',
             previous: '‹',
@@ -247,20 +314,28 @@ $result = mysqli_query($connect,$query);
         aria: {
             paginate: {
                 first:    'หน้าแรก',
-                previous: 'ย้อนก ลับ',
+                previous: 'ย้อนกลับ',
                 next:     'ถัดไป',
                 last:     'หน้าสุดท้าย'
             }
         }
-    },
-      "responsive": true,
-      "autoWidth": false,
-      "oLanguage": {
-        "sSearch": "ค้นหา",
+      },
+      autoWidth: false,
+      oLanguage: {
+        sSearch: "ค้นหา",
+        sLengthMenu: "แสดง _MENU_ แถว",
     },
     });
   });
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
+    });
 
+  
+   
   
   </script>
 </body>

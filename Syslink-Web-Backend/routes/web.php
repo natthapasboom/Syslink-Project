@@ -15,14 +15,17 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('new_login');
+    return view('login');
 });
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/login', 'Auth\LoginController@index')->name('login');
 Route::get('edit/users', 'UserManageController@index')->name('user_manage');
 Route::get('edit/admins', 'AdminManageController@index')->name('admin_manage');
+Route::get('edit/roles', 'RoleManageController@index')->name('role_manage');
 Route::get('edit/locations', 'LocationManageController@index')->name('location_manage');
 
 
