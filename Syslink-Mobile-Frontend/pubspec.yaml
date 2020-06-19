@@ -1,4 +1,4 @@
-name: syslinkproject
+name: checkin
 description: A new Flutter project.
 
 version: 1.0.0+1
@@ -11,28 +11,21 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
-  curved_navigation_bar: ^0.3.2
-  http: ^0.12.1
-
+  grouped_list: ^3.1.0
+  intl: ^0.15.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-
 
 flutter:
 
   uses-material-design: true
 
   assets:
-    - assets/logo.png
-    - assets/eye.png
-    - assets/lock.png
-    - assets/next.png
-    - assets/user.png
-
-
+    - assets/syslink.png
+    - assets/person.png
+    
   fonts:
     - family: Prompt
       fonts:
@@ -40,4 +33,3 @@ flutter:
         - asset: fonts/Prompt-Light.ttf
         - asset: fonts/Prompt-Medium.ttf
         - asset: fonts/Prompt-Regular.ttf
-          

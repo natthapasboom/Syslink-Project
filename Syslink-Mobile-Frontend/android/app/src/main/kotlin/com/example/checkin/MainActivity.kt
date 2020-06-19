@@ -1,4 +1,4 @@
-package com.example.syslinkproject
+package com.example.checkin
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
