@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: <Widget>[
                               Text(
-                                '$data',
+                                'data',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Prompt',
@@ -114,13 +114,42 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: <Widget>[
                               Container(
-                                height: 40,
-                                width: 250,
-                                decoration: BoxDecoration(color: Colors.white),
-                              )
+                                  height: 35,
+                                  width: 240,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4)),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 15),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.location_on,
+                                            color: Colors.black,
+                                            size: 15,
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Text(
+                                            '  สถานที่',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: 'Prompt',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ))
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 15),
                           Row(
                             children: <Widget>[
                               Column(
@@ -128,8 +157,40 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     height: 30,
                                     width: 100,
-                                    decoration:
-                                        BoxDecoration(color: Colors.white),
+                                    child: OutlineButton(
+                                      onPressed: () => {},
+                                      textColor: Colors.grey,
+                                      borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 1.0,
+                                          style: BorderStyle.solid),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.refresh,
+                                                color: Colors.white,
+                                                size: 15,
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                '  Refresh',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Prompt',
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
@@ -138,9 +199,40 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     margin: EdgeInsets.only(left: 10),
                                     height: 30,
-                                    width: 100,
-                                    decoration:
-                                        BoxDecoration(color: Colors.white),
+                                    width: 130,
+                                    child: OutlineButton(
+                                      onPressed: () => {},
+                                      textColor: Colors.grey,
+                                      borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 1.0,
+                                          style: BorderStyle.solid),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                'เลือกโครงการ',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Prompt',
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.white,
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
@@ -155,17 +247,46 @@ class _HomePageState extends State<HomePage> {
                   height: 100,
                   width: 100,
                   margin: EdgeInsets.only(top: 150, left: 280),
-                  decoration: BoxDecoration(
-                    color: Colors.green[600],
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CheckInPage()),
-                      );
-                    },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.green[600],
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: InkWell(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.exit_to_app,
+                                color: Colors.white,
+                                size: 25,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'cheched in',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Prompt',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CheckInPage()),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

@@ -1,3 +1,4 @@
+import 'package:checkin/Page/Login.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -95,18 +96,48 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: 100,
-            width: 100,
-            //color: Colors.white,
-            margin: EdgeInsets.only(top: 70, left: 150),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                image: DecorationImage(image: AssetImage("assets/person.png"))),
-            child: Column(
-              children: <Widget>[],
-            ),
+          // Container(
+          //   height: 100,
+          //   width: 100,
+          //   margin: EdgeInsets.only(top: 70, left: 150),
+          //   decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(50),
+          //       image: DecorationImage(image: AssetImage("assets/person.png"))),
+          //   child: Column(
+          //     children: <Widget>[],
+          //   ),
+          // ),
+          Stack(
+            children: <Widget>[
+              Container(
+                height: 100,
+                width: 100,
+                margin: EdgeInsets.only(top: 70, left: 150),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(width: 3, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(50),
+                    image: DecorationImage(
+                        image: AssetImage("assets/person.png"))),
+              ),
+              Container(
+                height: 30,
+                width: 30,
+                margin: EdgeInsets.only(top: 150, left: 225),
+                decoration: BoxDecoration(
+                  color: Color(0xff983643),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: InkWell(
+                  child: Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ),
+                  onTap: () => {},
+                ),
+              ),
+            ],
           ),
           Container(
             margin: EdgeInsets.only(top: 340, left: 10, right: 10),
@@ -153,7 +184,12 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 430, left: 10, right: 10),
             width: double.maxFinite,
             child: InkWell(
-              onTap: () => {},
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                )
+              },
               child: Card(
                 child: Container(
                   height: 80,

@@ -36,7 +36,19 @@ class HistoryPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
+            Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Text(
+                'วันนี้',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Prompt',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+            //SizedBox(height: 10),
             Container(
               child: Card(
                 child: Container(
