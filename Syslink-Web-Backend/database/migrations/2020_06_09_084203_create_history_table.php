@@ -15,12 +15,10 @@ class CreateHistoryTable extends Migration
     {
         Schema::create('attendance_histories', function (Blueprint $table) {
             $table->id();
-            $table->date('check_date');
-            $table->timestamp   ('check_in_datetime')->nullable();
-            $table->timestamp('check_out_datetime')->nullable();
-            $table->string('img_src');
-            $table->string('checkindescription');
-            $table->string('checkoutdescription');
+            $table->datetime('check_time')->nullable();
+            $table->string('action');
+            $table->string('check_img');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

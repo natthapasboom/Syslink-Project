@@ -1,4 +1,15 @@
+<?php 
+  $connect = mysqli_connect("localhost","root","","makubmaka_db");
+  $query = "
+SELECT * FROM users";
 
+  $result = mysqli_query($connect,$query);
+
+  if (!$result ?? '') {
+    printf("Error: %s\n", mysqli_error($connect));
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,10 +129,17 @@
                       <p>จัดการสถานที่</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="../edit/roles" class="nav-link">
+                      <i class="fas fa-address-card"></i>
+                      <p>จัดการตำแหน่ง</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
           
-              <li class="nav-item" style="position:fixed; bottom: 10px;">
+              <li class="nav-item" >
+
                 <a href=" {{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" class="nav-link">
                   <i class="fas fa-sign-out-alt text-danger"></i>
@@ -163,18 +181,31 @@
              
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="admintable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>ลำดับ</th>
+                    <th>รหัสพนักงาน</th>
+                    <th>ชื่อ</th>
+                    <th>นามสกุล</th>
                   </tr>
                   </thead>
                   <tbody>
-                  
+                    <?php 
+                    if(mysqli_num_rows($result)>0){
+                      while ($row = mysqli_fetch_array($result)) {
+                        echo '
+                        <tr>
+                          <td>'.$row["id"].'</td>
+                          <td>'.$row["username"].'</td>
+                          <td>'.$row["name"].'</td>
+                          <td>'.$row["surname"].'</td>
+                        </tr>
+                          ';
+                      }
+                    }
+
+                    ?>
                   </tbody>
                  
                 </table>
@@ -216,10 +247,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <!-- page script -->
-<script>
+<script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+  <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+  <script>
   $(function () {
-    $("#example1").DataTable({
-      
+    $("#admintable").DataTable({
+   "info": false,
       language: {
         "infoEmpty": "",
         "emptyTable": "ไม่พบข้อมูล",
@@ -243,13 +276,10 @@
       "autoWidth": false,
       "oLanguage": {
         "sSearch": "ค้นหา",
-       
+        "sLengthMenu": "แสดง _MENU_ แถว",
     },
-      
-     
     });
-   
   });
-</script>
+  </script>
 </body>
 </html>
