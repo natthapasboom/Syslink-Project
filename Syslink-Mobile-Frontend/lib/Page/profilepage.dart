@@ -42,6 +42,28 @@ class ProfilePage extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
+                              // Container(
+                              //   child: OutlineButton(
+                              //     onPressed: () => {},
+                              //     textColor: Colors.black,
+                              //     borderSide: BorderSide(
+                              //         color: Color(0xff983643),
+                              //         width: 1.0,
+                              //         style: BorderStyle.solid),
+                              //     child: Text(
+                              //       'edit',
+                              //       style: TextStyle(
+                              //           color: Colors.black,
+                              //           fontFamily: 'Prompt',
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.w300),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
                               Text(
                                 'username surname',
                                 style: TextStyle(
@@ -96,18 +118,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          // Container(
-          //   height: 100,
-          //   width: 100,
-          //   margin: EdgeInsets.only(top: 70, left: 150),
-          //   decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.circular(50),
-          //       image: DecorationImage(image: AssetImage("assets/person.png"))),
-          //   child: Column(
-          //     children: <Widget>[],
-          //   ),
-          // ),
           Stack(
             children: <Widget>[
               Container(
@@ -184,12 +194,7 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 430, left: 10, right: 10),
             width: double.maxFinite,
             child: InkWell(
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                )
-              },
+              onTap: () => {},
               child: Card(
                 child: Container(
                   height: 80,

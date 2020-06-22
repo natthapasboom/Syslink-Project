@@ -1,4 +1,5 @@
 import 'package:checkin/Push/checkin.dart';
+import 'package:checkin/WorldTime/hexClock.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: <Widget>[
                               Text(
-                                'EEE, MMM d, ' 'yy',
+                                'EEE, MMM d, ' 'yyyy',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Prompt',
@@ -100,14 +101,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Row(
                             children: <Widget>[
-                              Text(
-                                'data',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Prompt',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
-                              )
+                              SimpleClock(),
                             ],
                           ),
                           SizedBox(height: 10),
@@ -382,13 +376,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      Container(
-                        child: IconButton(
-                          icon:
-                              Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                          onPressed: () => {},
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -464,13 +451,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      Container(
-                        child: IconButton(
-                          icon:
-                              Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                          onPressed: () => {},
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -546,13 +526,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      Container(
-                        child: IconButton(
-                          icon:
-                              Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                          onPressed: () => {},
-                        ),
-                      )
                     ],
                   ),
                 ),
