@@ -15,7 +15,7 @@ class AddRoleIdToEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->nullable()->after('ref_id');
+            $table->unsignedBigInteger('role_id')->after('ref_id');
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }

@@ -322,7 +322,7 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
       },
       autoWidth: false,
       oLanguage: {
-        sSearch: "ค้นหา",
+        sSearch: "ค้นหา : ",
         sLengthMenu: "แสดง _MENU_ แถว",
     },
     });

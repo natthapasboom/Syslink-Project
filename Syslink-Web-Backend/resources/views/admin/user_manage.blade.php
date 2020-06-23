@@ -142,7 +142,7 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
               </ul>
             </li>
 
-            <li class="nav-item" >
+            <li class="nav-item">
               <a href=" {{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" class="nav-link">
                 <i class="fas fa-sign-out-alt text-danger"></i>
@@ -167,8 +167,13 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>จัดการพนักงาน</h1>
+            <div class="col-sm-12">
+              <h1>จัดการพนักงาน
+                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addmodal">
+                  เพิ่มพนักงาน
+                <i class="fa fa-plus-circle"></i>
+                  </button>
+              </h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -193,10 +198,11 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
                         <th>นามสกุล</th>
                         <th>แผนก</th>
                         <th>ตำแหน่ง</th>
+                        <th colspan="2" style="text-align: center;">แก้ไข</th>
                       </tr>
-                      </thead>
-                      <tbody>
-                        <?php 
+                    </thead>
+                    <tbody>
+                      <?php 
                         if(mysqli_num_rows($result)>0){
                           while ($row = mysqli_fetch_array($result)) {
                             echo '
@@ -207,13 +213,23 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
                               <td>'.$row["surname"].'</td>
                               <td>'.$row["department"].'</td> 
                               <td>'.$row["rname"].'</td>
+                              <td>
+                              <button type="button" class="btn btn-sm bg-green editbtn">
+                              <i class="fa fa-edit"; ></i>
+                                </button>
+                            </td> 
+                            <td>
+                              <button type="button" class="btn btn-sm bg-danger" data-toggle="modal" data-target="#modal-lg">
+                              <i class="fa fa-trash"></i>
+                                </button>
+                            </td> 
                             </tr>
                               ';
                           }
                         }
     
                         ?>
-                      </tbody>
+                    </tbody>
 
                   </table>
                 </div>
@@ -255,9 +271,25 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
   <script src="../../dist/js/demo.js"></script>
   <!-- page script -->
   <script>
-      $(function () {
+    $(function () {
         $("#usertable").DataTable({
-     
+          columnDefs: [
+        {
+            targets:   0,
+          className: 'text-center',
+
+        },
+        {
+            targets:   6,
+          className: 'text-center',
+
+        },
+        {
+          targets: 7,
+          className: 'text-center',
+
+        },
+        ],
    "info": false,
       language: {
         "infoEmpty": "",
@@ -281,12 +313,119 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
       "responsive": true,
       "autoWidth": false,
       "oLanguage": {
-        "sSearch": "ค้นหา",
+        "sSearch": "ค้นหา : ",
         "sLengthMenu": "แสดง _MENU_ แถว",
     },
     });
+
+    $('.editbtn').on('click',function(){
+      $('#editmodal').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+          return $(this).text();
+        }).get();
+    console.log(data);
+    $('#update_id').val(data[0]);
+    $('#username').val(data[1]);
+    $('#name').val(data[2]);
+    $('#surname').val(data[3]);
+    $('#department').val(data[4]);
+    $('#rname').val(data[5]);
+
+  });
+
   });
   </script>
 </body>
 
 </html>
+
+<div class="modal fade" id="editmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../update_locations_db.php" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>รหัสพนักงาน</label>
+            <input type="text" id="username" name="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ชื่อ</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>นามสกุล</label>
+            <input type="text" id="surname" name="surname" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>แผนก</label>
+            <input type="text" id="department" name="department" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ตำแหน่ง</label>
+            <input type="text" id="rname" name="rname" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="addmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../update_locations_db.php" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>รหัสพนักงาน</label>
+            <input type="text" id="username" name="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ชื่อ</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>นามสกุล</label>
+            <input type="text" id="surname" name="surname" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>แผนก</label>
+            <input type="text" id="department" name="department" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ตำแหน่ง</label>
+            <input type="text" id="rname" name="rname" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

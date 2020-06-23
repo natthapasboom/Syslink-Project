@@ -165,8 +165,14 @@
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>จัดการสถานที่</h1>
+            <div class="col-sm-12">
+              <h1>จัดการสถานที่
+                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addmodal">
+                  เพิ่มสถานที่  
+                <i class="fa fa-plus-circle"></i>
+                  </button>
+
+              </h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -185,10 +191,11 @@
                   <table id="locationtable" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>ลำดับ</th>
+                        <th style="max-width: 1px">ลำดับ</th>
                         <th>ชื่อ</th>
                         <th>ละติจูด</th>
                         <th>ลองจิจูด</th>
+                        <th colspan="2" style="text-align: center;">แก้ไข</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -201,6 +208,17 @@
                             <td>'.$row["name"].'</td>
                             <td>'.$row["latitude"].'</td>
                             <td>'.$row["longitude"].'</td> 
+                            <td>
+                              <button type="button" class="btn btn-sm bg-green editbtn">
+                              <i class="fa fa-edit"; ></i>
+                                </button>
+                            </td> 
+                            <td>
+                              <button type="button" class="btn btn-sm bg-danger" data-toggle="modal" data-target="#modal-lg">
+                              <i class="fa fa-trash"></i>
+                                </button>
+                            </td> 
+                            
                           </tr>
                             ';
                         }
@@ -242,6 +260,8 @@
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.min.js"></script>
@@ -249,37 +269,144 @@
   <script src="../../dist/js/demo.js"></script>
   <!-- page script -->
   <script>
-    $(function () {
-    $("#locationtable").DataTable({
-   "info": false,
-      language: {
-        "infoEmpty": "",
-        "emptyTable": "ไม่พบข้อมูล",
-        "lengthMenu": "แสดงข้อมูล  _MENU_  รายการ",
-        paginate: {
+    $(document).ready(function () {
+        $("#locationtable").DataTable({
+          columnDefs: [
+          {
+            targets:   0,
+            className: 'text-center',
+
+          },
+          {
+            targets:   4,
+            className: 'text-center',
+
+          },
+          {
+            targets: 5,
+            className: 'text-center',
+          },
+        ],
+       "info": false,
+        language: {
+          "infoEmpty": "",
+          "emptyTable": "ไม่พบข้อมูล",
+          paginate: {
             first:    '«',
             previous: '‹',
             next:     '›',
             last:     '»'
-        },
-        aria: {
+          },
+          aria: {
             paginate: {
-                first:    'หน้าแรก',
-                previous: 'ย้อนกลับ',
-                next:     'ถัดไป',
-                last:     'หน้าสุดท้าย'
+              first:    'หน้าแรก',
+              previous: 'ย้อนกลับ',
+              next:     'ถัดไป',
+              last:     'หน้าสุดท้าย'
             }
-        }
-    },
-      "responsive": true,
-      "autoWidth": false,
-      "oLanguage": {
-        "sSearch": "ค้นหา",
-        "sLengthMenu": "แสดง _MENU_ แถว",
-    },
+          }
+        },
+        "responsive": true,
+        "autoWidth": false,
+        "oLanguage": {
+          "sSearch": "ค้นหา : ",
+          "sLengthMenu": "แสดง _MENU_ แถว",
+        },
     });
+//Edit Form Placeholder
+    $('.editbtn').on('click',function(){
+      $('#editmodal').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+          return $(this).text();
+        }).get();
+    console.log(data);
+    $('#update_id').val(data[0]);
+    $('#name').val(data[1]);
+    $('#latitude').val(data[2]);
+    $('#longitude').val(data[3]);
+
+  });
+
   });
   </script>
 </body>
 
 </html>
+
+<div class="modal fade" id="editmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="LocationController@store" method="POST">
+        @csrf
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>ชื่อโปรเจค</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ละติจูด</label>
+            <input type="text" id="latitude" name="latitude" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ลองจิจูด</label>
+            <input type="text" id="longitude" name="longitude" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="addmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../edit/locations/create" method="POST">
+        @csrf 
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>ชื่อโปรเจค</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ละติจูด</label>
+            <input type="text" id="latitude" name="latitude" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ลองจิจูด</label>
+            <input type="text" id="longitude" name="longitude" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

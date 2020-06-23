@@ -164,8 +164,13 @@ SELECT * FROM users";
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>จัดการผู้ดูแล</h1>
+          <div class="col-sm-12">
+            <h1>จัดการผู้ดูแล
+              <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addmodal">
+                เพิ่มผู้ดูแล
+              <i class="fa fa-plus-circle"></i>
+                </button>
+            </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -188,6 +193,8 @@ SELECT * FROM users";
                     <th>รหัสพนักงาน</th>
                     <th>ชื่อ</th>
                     <th>นามสกุล</th>
+                    <th colspan="2" style="text-align: center;">แก้ไข</th>
+
                   </tr>
                   </thead>
                   <tbody>
@@ -200,6 +207,17 @@ SELECT * FROM users";
                           <td>'.$row["username"].'</td>
                           <td>'.$row["name"].'</td>
                           <td>'.$row["surname"].'</td>
+                          <td>
+                              <button type="button" class="btn btn-sm bg-green editbtn">
+                              <i class="fa fa-edit"; ></i>
+                                </button>
+                            </td> 
+                            <td>
+                              <button type="button" class="btn btn-sm bg-danger" data-toggle="modal" data-target="#modal-lg">
+                              <i class="fa fa-trash"></i>
+                                </button>
+                            </td> 
+                            
                         </tr>
                           ';
                       }
@@ -252,6 +270,22 @@ SELECT * FROM users";
   <script>
   $(function () {
     $("#admintable").DataTable({
+      columnDefs: [
+          {
+            targets:   0,
+            className: 'text-center',
+
+          },
+          {
+            targets:   4,
+            className: 'text-center',
+
+          },
+          {
+            targets: 5,
+            className: 'text-center',
+          },
+        ],
    "info": false,
       language: {
         "infoEmpty": "",
@@ -275,11 +309,109 @@ SELECT * FROM users";
       "responsive": true,
       "autoWidth": false,
       "oLanguage": {
-        "sSearch": "ค้นหา",
+        "sSearch": "ค้นหา : ",
         "sLengthMenu": "แสดง _MENU_ แถว",
     },
     });
+
+    //Edit Form Placeholder
+    $('.editbtn').on('click',function(){
+      $('#editmodal').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+          return $(this).text();
+        }).get();
+    console.log(data);
+    $('#update_id').val(data[0]);
+    $('#username').val(data[1]);
+    $('#name').val(data[2]);
+    $('#surname').val(data[3]);
+
+  });
+
   });
   </script>
 </body>
 </html>
+
+
+<div class="modal fade" id="editmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="LocationController@store" method="POST">
+        @csrf
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>รหัสพนักงาน</label>
+            <input type="text" id="username" name="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ชื่อ</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>นามสกุล</label>
+            <input type="text" id="surname" name="surname" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="addmodal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../edit/locations/create" method="POST">
+        @csrf 
+        <div class="modal-body">
+          <input type="hidden" name="update_id" id="update_id">
+          <div class="form-group">
+            <label>รหัสพนักงาน</label>
+            <input type="text" id="username" name="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>ชื่อ</label>
+            <input type="text" id="name" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>นามสกุล</label>
+            <input type="text" id="surname" name="surname" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>รหัสผ่าน</label>
+            <input type="password" id="password" name="password" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
