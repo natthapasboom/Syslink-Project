@@ -114,13 +114,13 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="edit/users" class="nav-link">
+                  <a href="../edit/employees" class="nav-link">
                     <i class="fas fa-user-edit"></i>
                     <p>จัดการพนักงาน</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="edit/admins" class="nav-link">
+                  <a href="../edit/users" class="nav-link">
                     <i class="fas fa-user-cog"></i>
                     <p>จัดการผู้ดูแล</p>
                   </a>
@@ -187,7 +187,7 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                       <tr>
 
                         <th></th>
-                        <th>ลำดับ</th>
+                        <th>ไอดี</th>
                         <th>รหัสพนักงาน</th>
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>

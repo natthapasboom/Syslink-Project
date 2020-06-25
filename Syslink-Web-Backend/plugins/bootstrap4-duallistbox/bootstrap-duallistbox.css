@@ -73,7 +73,7 @@
 }
 
 .bootstrap-duallistbox-container .filter.placeholder {
-  color: #aaa;
+  color: red;
 }
 
 .bootstrap-duallistbox-container.moveonselect .move,

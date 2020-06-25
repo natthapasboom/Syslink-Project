@@ -1585,7 +1585,7 @@ pre code {
 }
 
 .form-control::placeholder {
-  color: #868e96;
+  color: red;
   opacity: 1;
 }
 

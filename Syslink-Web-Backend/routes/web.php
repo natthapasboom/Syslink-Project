@@ -23,11 +23,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::get('edit/employees', 'EmployeeController@index')->name('employee_manage');
 Route::get('edit/users', 'UserController@index')->name('user_manage');
-Route::get('edit/admins', 'AdminController@index')->name('admin_manage');
 Route::get('edit/roles', 'RoleController@index')->name('role_manage');
 Route::get('edit/locations', 'LocationController@index')->name('location_manage');
 
 Route::post('edit/locations/create', 'LocationController@store');
+Route::post('edit/employees/create', 'EmployeeController@store');
+Route::put('/edit/employees/update/{id}', 'EmployeeController@update');
+Route::delete('/edit/employees/delete/{id}', 'EmployeeController@delete');
 
 
