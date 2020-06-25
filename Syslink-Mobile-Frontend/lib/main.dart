@@ -2,6 +2,7 @@ import 'package:checkin/Page/historypage.dart';
 import 'package:checkin/Page/homepage.dart';
 import 'package:checkin/Page/leavepage.dart';
 import 'package:checkin/Page/profilepage.dart';
+//import 'package:checkin/Page/Login.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   int _currentIndex = 0;
 
   final _pageActive = [
@@ -25,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //home: LoginPage(),
       home: Scaffold(
         body: _pageActive[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
