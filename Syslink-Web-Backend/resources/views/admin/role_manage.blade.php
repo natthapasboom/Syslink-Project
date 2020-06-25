@@ -114,13 +114,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../edit/users" class="nav-link">
+                  <a href="../edit/employees" class="nav-link">
                     <i class="fas fa-user-edit"></i>
                     <p>จัดการพนักงาน</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../edit/admins" class="nav-link">
+                  <a href="../edit/users" class="nav-link">
                     <i class="fas fa-user-cog"></i>
                     <p>จัดการผู้ดูแล</p>
                   </a>
@@ -191,7 +191,7 @@
                   <table id="locationtable" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th style="max-width: 1px">ลำดับ</th>
+                        <th style="max-width: 1px">ไอดี</th>
                         <th>ชื่อ</th>
                         <th colspan="2" style="text-align: center;">แก้ไข</th>
                       </tr>
@@ -266,6 +266,9 @@
   <!-- page script -->
   <script>
     $(document).ready(function () {
+      @if (count($errors) > 0)
+          $('#alertmodal').modal('show');
+        @endif
         $("#locationtable").DataTable({
           columnDefs: [
           {
@@ -388,3 +391,4 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+@include('layouts.alert_dialog')

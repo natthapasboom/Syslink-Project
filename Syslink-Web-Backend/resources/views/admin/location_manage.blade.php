@@ -114,13 +114,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../edit/users" class="nav-link">
+                  <a href="../edit/employees" class="nav-link">
                     <i class="fas fa-user-edit"></i>
                     <p>จัดการพนักงาน</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../edit/admins" class="nav-link">
+                  <a href="../edit/users" class="nav-link">
                     <i class="fas fa-user-cog"></i>
                     <p>จัดการผู้ดูแล</p>
                   </a>
@@ -191,7 +191,7 @@
                   <table id="locationtable" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th style="max-width: 1px">ลำดับ</th>
+                        <th style="max-width: 1px">ไอดี</th>
                         <th>ชื่อ</th>
                         <th>ละติจูด</th>
                         <th>ลองจิจูด</th>
@@ -214,7 +214,7 @@
                                 </button>
                             </td> 
                             <td>
-                              <button type="button" class="btn btn-sm bg-danger" data-toggle="modal" data-target="#modal-lg">
+                              <button type="button" class="btn btn-sm bg-danger addmodal" data-toggle="modal" data-target="#modal-lg">
                               <i class="fa fa-trash"></i>
                                 </button>
                             </td> 
@@ -270,6 +270,9 @@
   <!-- page script -->
   <script>
     $(document).ready(function () {
+      @if (count($errors) > 0)
+          $('#alertmodal').modal('show');
+        @endif
         $("#locationtable").DataTable({
           columnDefs: [
           {
@@ -377,11 +380,12 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
+        <h4 class="modal-title">เพิ่มข้อมูลสถานที่</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      
       <form action="../edit/locations/create" method="POST">
         @csrf 
         <div class="modal-body">
@@ -410,3 +414,4 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+@include('layouts.alert_dialog')
