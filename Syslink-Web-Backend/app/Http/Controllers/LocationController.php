@@ -26,6 +26,16 @@ class LocationController extends Controller
         return view('admin.location_manage');
     }
 
+
+    public function delete($id)
+    {
+        $location = Location::find($id);
+        $location->delete();
+        return redirect()->back();
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,15 +54,21 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $location = new Location;
+        $this->validate($request,array(
+            'name' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required']
+        ));
+        
+      
+        
+        $location = new Location();
 
         $location->name = $request->input('name');
         $location->latitude = $request->input('latitude');
         $location->longitude = $request->input('longitude');
-
-
         $location->save();
-        return redirect('/edit/locations')->with('เสร็จสิ้น','เพิ่มข้อมูลเรียบร้อย');
+        return redirect()->back();
     }
 
     /**
@@ -86,7 +102,22 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,array(
+            'name' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required']
+        ));
+        
+        $location = Location::find($id);
+
+        $location->name = $request->input('name');
+        $location->latitude = $request->input('latitude');
+        $location->longitude = $request->input('longitude');
+        $location->update();
+        
+        return redirect()->back();
+
+
     }
 
     /**

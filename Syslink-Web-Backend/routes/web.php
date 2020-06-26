@@ -29,8 +29,18 @@ Route::get('edit/roles', 'RoleController@index')->name('role_manage');
 Route::get('edit/locations', 'LocationController@index')->name('location_manage');
 
 Route::post('edit/locations/create', 'LocationController@store');
+Route::put('/edit/locations/update/{id}', 'LocationController@update');
+Route::delete('/edit/locations/delete/{id}', 'LocationController@delete');
+
 Route::post('edit/employees/create', 'EmployeeController@store');
 Route::put('/edit/employees/update/{id}', 'EmployeeController@update');
 Route::delete('/edit/employees/delete/{id}', 'EmployeeController@delete');
 
+Route::post('edit/roles/create', 'RoleController@store');
+Route::put('/edit/roles/update/{id}', 'RoleController@update');
+Route::delete('/edit/roles/delete/{id}', 'RoleController@delete');
+
+Route::post('edit/users/create', 'UserController@store');
+Route::put('/edit/users/update/{id}', 'UserController@update');
+Route::delete('/edit/users/delete/{id}', 'UserController@delete');
 

@@ -324,10 +324,10 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
           return $(this).text();
         }).get();
     console.log(data);
-    $('#editusername').val(data[1]);
-    $('#editname').val(data[2]);
-    $('#editsurname').val(data[3]);
-    $('#editdepartment').val(data[4]);
+    $('#username').val(data[1]);
+    $('#name').val(data[2]);
+    $('#surname').val(data[3]);
+    $('#department').val(data[4]);
     $('#employeesupdate').attr('action','../edit/employees/update/'+data[0]);        
     });
     @if (count($errors) > 0)
@@ -370,33 +370,33 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input type="text" id="editusername" name="editusername" class="form-control " maxlength="7" placeholder="*">
+            <input type="text" id="username" name="username" class="form-control " maxlength="7" placeholder="*">
           </div>
           <div class="form-group">
             <label>รหัสผ่านใหม่</label>
-            <input type="text" id="editpassword" name="editpassword" class="form-control " maxlength="30" placeholder="*">
+            <input type="password" id="password" name="password" class="form-control " maxlength="30" placeholder="*">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
-            <input type="text" id="editname" name="editname" class="form-control " maxlength="20" placeholder="*">
+            <input type="text" id="name" name="name" class="form-control " maxlength="20" placeholder="*">
           </div>
           <div class="form-group">
             <label>นามสกุล</label>
-            <input type="text" id="editsurname" name="editsurname" class="form-control" maxlength="20" placeholder="*">
+            <input type="text" id="surname" name="surname" class="form-control" maxlength="20" placeholder="*">
           </div>
           <div class="form-group">
             <label>แผนก</label>
-            <input type="text" id="editdepartment" name="editdepartment" class="form-control " maxlength="20" placeholder="*">
+            <input type="text" id="department" name="department" class="form-control " maxlength="20" placeholder="*">
           </div>
           <div class="form-group">
             <label>ตำแหน่ง</label><br>
-            <select name="editrole_id" class="form-control ">
+            <select name="role_id" class="form-control " id="role_id">
               <option value="">
                 เลือกตำแหน่ง
               </option>
               <?php
                 $connectrole = mysqli_connect("localhost","root","","makubmaka_db");
-                $query = "SELECT * FROM roles WHERE id!=1";
+                $query = "SELECT * FROM roles WHERE name NOT LIKE 'Admin'";
                 $result = mysqli_query($connectrole,$query);
 			          while($row = mysqli_fetch_array($result)){
                   ?>
@@ -434,23 +434,23 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input type="text" id="username" name="username" class="form-control" maxlength="7">
+            <input autofocus type="text" id="addusername" name="username" class="form-control" maxlength="7">
           </div>
           <div class="form-group">
             <label>รหัสผ่าน</label>
-            <input type="password" id="password" name="password" class="form-control" maxlength="30">
+            <input type="password" id="addpassword" name="password" class="form-control" maxlength="30">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
-            <input type="text" id="name" name="name" class="form-control" maxlength="20">
+            <input type="text" id="addname" name="name" class="form-control" maxlength="20">
           </div>
           <div class="form-group">
             <label>นามสกุล</label>
-            <input type="text" id="surname" name="surname" class="form-control" maxlength="20">
+            <input type="text" id="addsurname" name="surname" class="form-control" maxlength="20">
           </div>
           <div class="form-group">
             <label>แผนก</label>
-            <input type="text" id="department" name="department" class="form-control" maxlength="20">
+            <input type="text" id="adddepartment" name="department" class="form-control" maxlength="20">
           </div>
           {{-- <div class="form-group">
             <label>ตำแหน่ง</label>
@@ -458,13 +458,13 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
           </div> --}}
           <div class="form-group">
             <label>ตำแหน่ง</label><br>
-            <select name="role_id" class="form-control">
+            <select name="role_id" class="form-control" id="addrole_id">
               <option value="">
                 เลือกตำแหน่ง
               </option>
               <?php
                 $connectrole = mysqli_connect("localhost","root","","makubmaka_db");
-                $query = "SELECT * FROM roles WHERE id!=1";
+                $query = "SELECT * FROM roles WHERE name NOT LIKE 'Admin'";
                 $result = mysqli_query($connectrole,$query);
 			          while($row = mysqli_fetch_array($result)){
                   ?>
@@ -505,15 +505,15 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input disabled type="text" id="delusername" name="delusername" class="form-control " maxlength="7" placeholder="*">
+            <input disabled type="text" id="delusername" name="username" class="form-control " maxlength="7" placeholder="*">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
-            <input disabled type="text" id="delname" name="delname" class="form-control " maxlength="20" placeholder="*">
+            <input disabled type="text" id="delname" name="name" class="form-control " maxlength="20" placeholder="*">
           </div>
           <div class="form-group">
             <label>นามสกุล</label>
-            <input disabled type="text" id="delsurname" name="delsurname" class="form-control" maxlength="20" placeholder="*">
+            <input disabled type="text" id="delsurname" name="surname" class="form-control" maxlength="20" placeholder="*">
           </div>
         </div>
         <div class="modal-footer justify-content-between">

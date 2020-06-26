@@ -107,7 +107,7 @@ class EmployeeController extends Controller
         $this->validate($request,array(
             'name' => ['required',],
             'surname' => ['required',],
-            'username' => ['required','min:7','max:7','unique:employees'],
+            'username' => ['required','min:7','max:7'],
             'password' => ['required','min:5'],
             'department' => ['required',],
             'role_id' => ['required',]
