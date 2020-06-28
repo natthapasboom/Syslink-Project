@@ -167,10 +167,11 @@
           <div class="row mb-2">
             <div class="col-sm-12">
               <h1>จัดการสถานที่
-                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addmodal">
-                  เพิ่มสถานที่  
-                <i class="fa fa-plus-circle"></i>
-                  </button>
+                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal"
+                  data-target="#addmodal">
+                  เพิ่มสถานที่
+                  <i class="fa fa-plus-circle"></i>
+                </button>
 
               </h1>
             </div>
@@ -214,7 +215,7 @@
                                 </button>
                             </td> 
                             <td>
-                              <button type="button" class="btn btn-sm bg-danger addmodal" data-toggle="modal" data-target="#modal-lg">
+                              <button type="button" class="btn btn-sm bg-danger deletebtn">
                               <i class="fa fa-trash"></i>
                                 </button>
                             </td> 
@@ -270,9 +271,7 @@
   <!-- page script -->
   <script>
     $(document).ready(function () {
-      @if (count($errors) > 0)
-          $('#alertmodal').modal('show');
-        @endif
+
         $("#locationtable").DataTable({
           columnDefs: [
           {
@@ -324,12 +323,32 @@
           return $(this).text();
         }).get();
     console.log(data);
-    $('#update_id').val(data[0]);
     $('#name').val(data[1]);
     $('#latitude').val(data[2]);
     $('#longitude').val(data[3]);
+    $('#locationsupdate').attr('action','../edit/locations/update/'+data[0]);        
+    });
 
-  });
+
+    //deletebtn
+    $('.deletebtn').on('click',function(){
+      $('#deletemodal').modal('show');
+        $tr = $(this).closest('tr');
+        var data2 = $tr.children("td").map(function(){
+          return $(this).text();
+        }).get();
+    console.log(data2);
+    $('#delname').val(data2[1]);
+    $('#dellatitude').val(data2[2]);
+    $('#dellongitude').val(data2[3]);
+    $('#locationsdelete').attr('action','../edit/locations/delete/'+data2[0]);        
+    });
+
+
+    @if (count($errors) > 0)
+      $('#alertmodal').modal('show');
+    @endif
+
 
   });
   </script>
@@ -338,7 +357,7 @@
 </html>
 
 <div class="modal fade" id="editmodal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">แก้ไขข้อมูลสถานที่</h4>
@@ -346,10 +365,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="LocationController@store" method="POST">
+      <form action="../edit/locations/update" method="POST" id="locationsupdate">
         @csrf
+        {{ method_field('PUT') }}
         <div class="modal-body">
-          <input type="hidden" name="update_id" id="update_id">
           <div class="form-group">
             <label>ชื่อโปรเจค</label>
             <input type="text" id="name" name="name" class="form-control">
@@ -377,7 +396,7 @@
 
 
 <div class="modal fade" id="addmodal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">เพิ่มข้อมูลสถานที่</h4>
@@ -385,26 +404,66 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+
       <form action="../edit/locations/create" method="POST">
-        @csrf 
+        @csrf
         <div class="modal-body">
-          <input type="hidden" name="update_id" id="update_id">
           <div class="form-group">
             <label>ชื่อโปรเจค</label>
-            <input type="text" id="name" name="name" class="form-control">
+            <input autofocus type="text" id="addname" name="name" class="form-control">
           </div>
           <div class="form-group">
             <label>ละติจูด</label>
-            <input type="text" id="latitude" name="latitude" class="form-control">
+            <input type="text" id="addlatitude" name="latitude" class="form-control">
           </div>
           <div class="form-group">
             <label>ลองจิจูด</label>
-            <input type="text" id="longitude" name="longitude" class="form-control">
+            <input type="text" id="addlongitude" name="longitude" class="form-control">
           </div>
         </div>
         <div class="modal-footer justify-content-end">
           <button type="submit" class="btn bg-green" name="updatedata">บันทึก</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="deletemodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ลบสถานที่</h4>
+        <button type="button" class="close" data-dismiss="deletemodal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../edit/employees/delete" method="POST" id="locationsdelete">
+        @csrf
+        {{ method_field('delete') }}
+        <div class="modal-body">
+          <div class="form-group">
+            <label>ชื่อสถานที่</label>
+            <input disabled type="text" id="delname" name="name" class="form-control " maxlength="20" placeholder="*">
+          </div>
+          <div class="form-group">
+            <label>ละติจูด</label>
+            <input disabled type="text" id="dellatitude" name="latitude" class="form-control " maxlength="50" placeholder="*">
+          </div>
+          <div class="form-group">
+            <label>ลองจิจูด</label>
+            <input disabled type="text" id="dellongitude" name="longitude" class="form-control" maxlength="50" placeholder="*">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
+        <button type="submit" class="btn btn-danger">ยืนยัน</button>
+
         </div>
       </form>
 

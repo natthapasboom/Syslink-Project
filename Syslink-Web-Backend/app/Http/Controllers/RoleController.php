@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -35,6 +36,14 @@ class RoleController extends Controller
         //
     }
 
+    public function delete($id)
+    {
+        $role = Role::find($id);
+        $role->delete();
+        return redirect()->back();
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,7 +52,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,array(
+            'name' => ['required'],
+        ));
+        
+      
+        
+        $role = new Role();
+
+        $role->name = $request->input('name');
+        $role->save();
+        return redirect()->back();
     }
 
     /**
@@ -77,7 +96,16 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,array(
+            'name' => ['required'],
+        ));
+        
+        $role = Role::find($id);
+
+        $role->name = $request->input('name');
+        
+        $role->update();
+        return redirect()->back();
     }
 
     /**

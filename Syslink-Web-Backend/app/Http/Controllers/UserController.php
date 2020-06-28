@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -45,7 +47,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,array(
+            'name' => ['required',],
+            'surname' => ['required',],
+            'username' => ['required','max:7','unique:users'],
+            'password' => ['required',],
+        ));
+      
+        
+        $user = new User();
+
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->username = $request->input('username');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+        return redirect()->back();
+    }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back();
+
     }
 
     /**
@@ -79,7 +104,23 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->validate($request,array(
+            'name' => ['required',],
+            'surname' => ['required',],
+            'username' => ['required','max:7','min:7'],
+            'password' => ['required',],
+        ));
+        
+        
+        $user = new User();
+
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->username = $request->input('username');
+        $user->password = bcrypt($request->input('password'));
+        // $user->password = Hash::make($request->input('password'));
+        $user->update();
+        return redirect()->back();
     }
 
     /**
