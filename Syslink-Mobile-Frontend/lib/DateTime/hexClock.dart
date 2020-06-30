@@ -19,7 +19,7 @@ class PageBG extends StatefulWidget {
 
 class _PageBGState extends State<PageBG> {
   String _now;
-  Timer _everySecond;
+  Timer everySecond;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _PageBGState extends State<PageBG> {
     final dt = DateTime.now();
     _now =
         "${dt.hour.toString().padLeft(2, '0')}${dt.minute.toString().padLeft(2, '0')}${dt.second.toString().padLeft(2, '0')}";
-    _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
+    everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
       if (!mounted) return;
       setState(() {
         var dt = DateTime.now();
@@ -53,13 +53,13 @@ class SimpleClock extends StatefulWidget {
 
 class _SimpleClockState extends State<SimpleClock> {
   String _now;
-  Timer _everySecond;
+  Timer everySecond;
 
   @override
   void initState() {
     super.initState();
     _now = _timeToString(DateTime.now());
-    _everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
       if (!mounted) return;
       setState(() {
         _now = _timeToString(DateTime.now());
