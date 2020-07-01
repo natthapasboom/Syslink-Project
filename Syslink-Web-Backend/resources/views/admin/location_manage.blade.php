@@ -375,11 +375,11 @@
           </div>
           <div class="form-group">
             <label>ละติจูด</label>
-            <input type="text" id="latitude" name="latitude" class="form-control">
+            <input type="number" id="latitude" name="latitude" class="form-control">
           </div>
           <div class="form-group">
             <label>ลองจิจูด</label>
-            <input type="text" id="longitude" name="longitude" class="form-control">
+            <input type="number" id="longitude" name="longitude" class="form-control">
           </div>
         </div>
         <div class="modal-footer justify-content-end">
@@ -414,11 +414,11 @@
           </div>
           <div class="form-group">
             <label>ละติจูด</label>
-            <input type="text" id="addlatitude" name="latitude" class="form-control">
+            <input type="number" id="addlatitude" name="latitude" class="form-control">
           </div>
           <div class="form-group">
             <label>ลองจิจูด</label>
-            <input type="text" id="addlongitude" name="longitude" class="form-control">
+            <input type="number" id="addlongitude" name="longitude" class="form-control">
           </div>
         </div>
         <div class="modal-footer justify-content-end">
@@ -447,6 +447,11 @@
         @csrf
         {{ method_field('delete') }}
         <div class="modal-body">
+          <div class="alert alert-danger text-center">
+            <h5>*โปรดระวัง</h5><hr>
+             <p>หากทำการลบสถานที่ที่มีบันทึกข้อมูลอยู่
+              <br>จะส่งผลให้ข้อมูลสูญหาย.</p>
+          </div>
           <div class="form-group">
             <label>ชื่อสถานที่</label>
             <input disabled type="text" id="delname" name="name" class="form-control " maxlength="20" placeholder="*">
@@ -473,4 +478,5 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+@include('layouts.remove_arrow')
 @include('layouts.alert_dialog')

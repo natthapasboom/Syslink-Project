@@ -346,7 +346,7 @@ SELECT * FROM users";
     $('#delusername').val(data2[1]);
     $('#delname').val(data2[2]);
     $('#delsurname').val(data2[3]);
-    $('#usersdelete').attr('action','../edit/users/delete/'+data[0]);        
+    $('#usersdelete').attr('action','../edit/users/delete/'+data2[0]);        
     
   });
 
@@ -361,7 +361,7 @@ SELECT * FROM users";
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">แก้ไขข้อมูลผู้ดูแล</h4>
+        <h4 class="modal-title">แก้ไขข้อมูลพนักงาน</h4>
         <button type="button" class="close" data-dismiss="editmodal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -372,14 +372,17 @@ SELECT * FROM users";
 
         <div class="modal-body">
           <div class="form-group">
-            <label>รหัสผู้ดูแล</label>
-            <input type="text" id="username" name="username" class="form-control " maxlength="7" placeholder="*">
+            <label>รหัสพนักงาน</label>
+            <input disabled type="number" id="username" name="username" class="form-control " maxlength="7" placeholder="*">
           </div>
           <div class="form-group">
             <label>รหัสผ่านใหม่</label>
             <input type="password" id="password" name="password" class="form-control " maxlength="30" placeholder="*">
           </div>
-         
+          <div class="form-group">
+            <label>ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="password" name="password_confirmation" class="form-control " maxlength="30" placeholder="*">
+          </div>
           <div class="form-group">
             <label>ชื่อ</label>
             <input type="text" id="name" name="name" class="form-control " maxlength="20" placeholder="*">
@@ -416,11 +419,15 @@ SELECT * FROM users";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสผู้ดูแล</label>
-            <input autofocus type="text" id="addusername" name="username" class="form-control" maxlength="7">
+            <input autofocus type="number" id="addusername" name="username" class="form-control" maxlength="7">
           </div>
           <div class="form-group">
             <label>รหัสผ่าน</label>
             <input type="password" id="addpassword" name="password" class="form-control" maxlength="30">
+          </div>
+          <div class="form-group">
+            <label>ยืนยันรหัสผ่าน</label>
+            <input type="password" id="password" name="password_confirmation" class="form-control" maxlength="30">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
@@ -457,6 +464,11 @@ SELECT * FROM users";
         @csrf
         {{ method_field('delete') }}
         <div class="modal-body">
+          <div class="alert alert-danger text-center">
+            <h5>*โปรดระวัง</h5><hr>
+             <p>การลบผู้ดูแลไม่สามารถกู้คืนได้
+              <br>โปรดตรวจสอบให้แน่ชัดก่อนทำการลบข้อมูล</p>
+          </div>
           <div class="form-group">
             <label>รหัสผู้ดูแล</label>
             <input disabled type="text" id="delusername" name="username" class="form-control " maxlength="7" placeholder="*">
@@ -469,6 +481,7 @@ SELECT * FROM users";
             <label>นามสกุล</label>
             <input disabled type="text" id="delsurname" name="surname" class="form-control" maxlength="20" placeholder="*">
           </div>
+          
         </div>
         <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
@@ -486,3 +499,4 @@ SELECT * FROM users";
 
 
 @include('layouts.alert_dialog')
+@include('layouts.remove_arrow')

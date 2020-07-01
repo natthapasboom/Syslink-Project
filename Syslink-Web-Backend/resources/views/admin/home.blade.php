@@ -165,8 +165,14 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>ตารางข้อมูลเวลา เข้า - ออก</h1>
+            <div class="col-sm-12">
+              <h1>ตารางข้อมูลเวลา เข้า - ออก
+                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal"
+                  data-target="#addmodal">
+                  Export Data
+                  <i class="fa fa-upload "></i>
+                </button>
+              </h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -186,7 +192,7 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                     <thead>
                       <tr>
 
-                        <th></th>
+                        <th><i class="fa fa-info-circle" style="margin-left: 5px"></i></th>
                         <th>ไอดี</th>
                         <th>รหัสพนักงาน</th>
                         <th>ชื่อ</th>
@@ -195,7 +201,7 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                         <th>โปรเจค</th>
                         <th>ประเภท</th>
                         <th>รูป</th>
-                        <th>หมายเหตุ</th>
+                        <th>หมายเหตุ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
 
                       </tr>
@@ -203,11 +209,12 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                     <tbody>
                       <?php 
                       if(mysqli_num_rows($result)>0){
-
+                        
                         while ($row = mysqli_fetch_array($result)) {
+                          
                           echo '
                           <tr>
-
+                            
 
                             <td></td>
                             <td>'.$row["id"].'</td>
@@ -217,11 +224,15 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                             <td>'.$row["time"].'</td> 
                             <td>'.$row["location"].'</td>
                             <td>'.$row["action"].'</td>
-                            <td><a href="https://filmdaily.co/wp-content/uploads/2020/05/coughing-cat-meme-lede.jpg" data-toggle="lightbox" data-title="โปรเจค : '.$row["location"].'">
-                              <i class="fas fa-archive"></i>
+                            <td>
+                                <a href="https://filmdaily.co/wp-content/uploads/2020/05/coughing-cat-meme-lede.jpg" data-toggle="lightbox" data-title="โปรเจค : '.$row["location"].'">
+                                  <button type="button" class="btn btn-sm bg-primary">
+                                    <i class="fas fa-archive "></i>
+                                  </button>
                                 </a>
                             </td>
-                            <td style="max-width: 100px"><span style=" text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">'.$row["description"].'</span></td>
+                            <td>'.$row["description"].'</td>
+                           
 
                           </tr>
                             ';
@@ -300,44 +311,80 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
         {
           targets: 8,
           className: 'text-center'
-        }],
-      "info": false,
-      language: {
-        emptyTable: "ไม่พบข้อมูล",
-        lengthMenu: "แสดงข้อมูล  _MENU_  รายการ",
-        paginate: {
-            first:    '«',
-            previous: '‹',
-            next:     '›',
-            last:     '»'
         },
-        aria: {
-            paginate: {
-                first:    'หน้าแรก',
-                previous: 'ย้อนกลับ',
-                next:     'ถัดไป',
-                last:     'หน้าสุดท้าย'
-            }
+        {
+          targets: 9,
+          className: 'text-center'
         }
-      },
-      autoWidth: false,
-      oLanguage: {
-        sSearch: "ค้นหา : ",
-        sLengthMenu: "แสดง _MENU_ แถว",
-    },
+        ],
+        "info": false,
+        language: {
+          emptyTable: "ไม่พบข้อมูล",
+          lengthMenu: "แสดงข้อมูล  _MENU_  รายการ",
+          paginate: {
+              first:    '«',
+              previous: '‹',
+              next:     '›',
+              last:     '»'
+          },
+          aria: {
+              paginate: {
+                  first:    'หน้าแรก',
+                  previous: 'ย้อนกลับ',
+                  next:     'ถัดไป',
+                  last:     'หน้าสุดท้าย'
+              }
+          }
+        },
+        autoWidth: false,
+        oLanguage: {
+          sSearch: "ค้นหา : ",
+          sLengthMenu: "แสดง _MENU_ แถว",
+        },
+      });
+      $('.desbtn').on('click',function(){
+      $('#descriptionmodal').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+          return $(this).text();
+        }).get();
+      console.log(data);
+      $('#description').val(data[7]);
+      });
     });
-  });
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
       event.preventDefault();
       $(this).ekkoLightbox({
         alwaysShowClose: true
       });
     });
-
-  
-   
-  
   </script>
 </body>
 
 </html>
+
+
+<div class="modal fade" id="descriptionmodal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">หมายเหตุ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input disabled type="text" id="description" name="description" class="form-control">
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-left">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

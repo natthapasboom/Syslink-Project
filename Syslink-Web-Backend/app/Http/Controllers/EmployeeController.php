@@ -44,7 +44,7 @@ class EmployeeController extends Controller
             'name' => ['required',],
             'surname' => ['required',],
             'username' => ['required','max:7','unique:employees'],
-            'password' => ['required',],
+            'password' => ['required','min:5','confirmed'],
             'department' => ['required',],
             'role_id' => ['required',]
         ));
@@ -108,7 +108,7 @@ class EmployeeController extends Controller
             'name' => ['required',],
             'surname' => ['required',],
             'username' => ['required','min:7','max:7'],
-            'password' => ['required','min:5'],
+            'password' => ['required','min:5','confirmed'],
             'department' => ['required',],
             'role_id' => ['required',]
         ));
@@ -117,10 +117,9 @@ class EmployeeController extends Controller
 
         $employee->name = $request->input('name');
         $employee->surname = $request->input('surname');
-        $employee->username = $request->input('username');
         $employee->password = Hash::make($request->input('password'));
         $employee->department = $request->input('department');
-        $employee->role_id = $request->input('role_id');
+        $employee->role_id = $request->input('role_id'); 
         $employee->update();
         return redirect()->back();
 

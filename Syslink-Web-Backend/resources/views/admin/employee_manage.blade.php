@@ -211,15 +211,15 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
                               <td>'.$row["department"].'</td> 
                               <td>'.$row["rname"].'</td>
                               <td>
-                              <button type="button" class="btn btn-sm bg-green editbtn">
-                              <i class="fa fa-edit"; ></i>
+                                <button type="button" class="btn btn-sm bg-green editbtn">
+                                  <i class="fa fa-edit"></i>
                                 </button>
-                            </td> 
-                            <td>
-                              <button type="button" class="btn btn-sm bg-danger deletebtn">
-                              <i class="fa fa-trash"></i>
+                              </td> 
+                              <td>
+                                <button type="button" class="btn btn-sm bg-danger deletebtn">
+                                  <i class="fa fa-trash"></i>
                                 </button>
-                            </td> 
+                              </td> 
                             </tr>
                               ';
                           }
@@ -370,11 +370,16 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input type="text" id="username" name="username" class="form-control " maxlength="7" placeholder="*">
+            <input disabled type="number" id="username" name="username" class="form-control " maxlength="7" placeholder="*">
           </div>
           <div class="form-group">
             <label>รหัสผ่านใหม่</label>
             <input type="password" id="password" name="password" class="form-control " maxlength="30" placeholder="*">
+          </div>
+          <div class="form-group">
+            <label>ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="password" name="password_confirmation" class="form-control " maxlength="30"
+              placeholder="*">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
@@ -434,11 +439,15 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         <div class="modal-body">
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input autofocus type="text" id="addusername" name="username" class="form-control" maxlength="7">
+            <input autofocus type="number" id="addusername" name="username" class="form-control" maxlength="7">
           </div>
           <div class="form-group">
             <label>รหัสผ่าน</label>
             <input type="password" id="addpassword" name="password" class="form-control" maxlength="30">
+          </div>
+          <div class="form-group">
+            <label>ยืนยันรหัสผ่าน</label>
+            <input type="password" id="addpassword" name="password_confirmation" class="form-control" maxlength="30">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
@@ -503,9 +512,15 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
         @csrf
         {{ method_field('delete') }}
         <div class="modal-body">
+          <div class="alert alert-danger text-center">
+            <h5>*โปรดระวัง</h5><hr>
+             <p>การลบพนักงานไม่สามารถกู้คืนได้
+              <br>โปรดตรวจสอบให้แน่ชัดก่อนทำการลบข้อมูล</p>
+          </div>
           <div class="form-group">
             <label>รหัสพนักงาน</label>
-            <input disabled type="text" id="delusername" name="username" class="form-control " maxlength="7" placeholder="*">
+            <input disabled type="text" id="delusername" name="username" class="form-control " maxlength="7"
+              placeholder="*">
           </div>
           <div class="form-group">
             <label>ชื่อ</label>
@@ -513,12 +528,13 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
           </div>
           <div class="form-group">
             <label>นามสกุล</label>
-            <input disabled type="text" id="delsurname" name="surname" class="form-control" maxlength="20" placeholder="*">
+            <input disabled type="text" id="delsurname" name="surname" class="form-control" maxlength="20"
+              placeholder="*">
           </div>
         </div>
         <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
-        <button type="submit" class="btn btn-danger">ยืนยัน</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
+          <button type="submit" class="btn btn-danger">ยืนยัน</button>
 
         </div>
       </form>
@@ -531,3 +547,4 @@ FROM employees e INNER JOIN roles r ON e.role_id = r.id where r.id!=1";
 <!-- /.modal -->
 
 @include('layouts.alert_dialog')
+@include('layouts.remove_arrow')

@@ -419,15 +419,16 @@
         @csrf
         {{ method_field('delete') }}
         <div class="modal-body">
+          <div class="alert alert-danger text-center">
+            <h5>*โปรดระวัง</h5><hr>
+             <p>หากทำการลบตำแหน่งที่มีพนักงานอยู่
+              <br>จะส่งผลให้ข้อมูลพนักงานสูญหาย.</p>
+          </div>
           <div class="form-group">
             <label>ชื่อตำแหน่ง</label>
             <input disabled type="text" id="delname" name="name" class="form-control " maxlength="20" placeholder="*">
           </div>
-          <div class="alert alert-danger text-center">
-            <h5>*โปรดระวัง</h5><hr>
-             <p>หากทำการลบตำแหน่งที่มีพนักงานอยู่
-              <br>อาจส่งผลให้ข้อมูลพนักงานอาจสูญหาย !</p>
-          </div>
+          
         </div>
 
         <div class="modal-footer justify-content-between">
