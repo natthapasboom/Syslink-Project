@@ -1,11 +1,10 @@
 import 'package:checkin/Page/Login.dart';
-import 'package:checkin/Page/homepage.dart';
 // import 'package:checkin/Page/historypage.dart';
 // import 'package:checkin/Page/homepage.dart';
 // import 'package:checkin/Page/leavepage.dart';
 // import 'package:checkin/Page/profilepage.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  SharedPreferences sharedPreferences;
+  // SharedPreferences sharedPreferences;
   // int _currentIndex = 0;
 
   // final _pageActive = [
@@ -26,21 +25,21 @@ class _MyAppState extends State<MyApp> {
   //   ProfilePage(),
   // ];
 
-  @override
-  void initState(){
-    super.initState();
-    chechLoginStatus();
-  }
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   chechLoginStatus();
+  // }
 
-  chechLoginStatus() async {
-    sharedPreferences = await SharedPreferences.getInstance();
+  // chechLoginStatus() async {
+  //   sharedPreferences = await SharedPreferences.getInstance();
 
-    if(sharedPreferences.getString("token") == null) {
-      Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-              (Route<dynamic> route) => false);
-    }
-  }
+  //   if(sharedPreferences.getString("token") == null) {
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+  //             (Route<dynamic> route) => false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

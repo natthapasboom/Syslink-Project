@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:checkin/main.dart';
-import 'package:checkin/models/user_model.dart';
-import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
-//import 'package:checkin/main.dart';
+// import 'package:checkin/models/user_model.dart';
+// import 'package:dio/dio.dart';
+// import 'package:logger/logger.dart';
+// import 'package:checkin/main.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+// import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -85,24 +85,24 @@ class _Login extends State<LoginPage> {
   //   super.initState();
   // }
 
-  // Future<void> login() async {
-  //   //print('get data');
-  //   var response = await http.get("http://10.0.2.2:8080/api/login");
-  //   print(response.body);
+  Future<void> login() async {
+    print('get data');
+    var response = await http.get("http://10.0.2.2:8080/api/login");
+    print(response.body);
 
-  // var datauser = jsonDecode(response.body);
-  // print(datauser);
+    // var datauser = jsonDecode(response.body);
+    // print(datauser);
 
-  //String url = "http://10.0.2.2:8080/api/login";
-  //Dio dio = Dio();
-  // Response response = await dio.post(
-  //   url,
-  //   data: {
-  //     "username": usernameController.text.trim(),
-  //     "password": passwordController.text.trim(),
-  //   },
-  // );
-  //}
+    //String url = "http://10.0.2.2:8080/api/login";
+    //Dio dio = Dio();
+    // Response response = await dio.post(
+    //   url,
+    //   data: {
+    //     "username": usernameController.text.trim(),
+    //     "password": passwordController.text.trim(),
+    //   },
+    // );
+  }
 
   // if (response.statusCode == 200) {
   //   jsonResponse = json.decode(response.body);
@@ -161,38 +161,39 @@ class _Login extends State<LoginPage> {
     );
   }
 
-  login(String username, password) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map data = {'username': username, 'password': password};
-    var jsondata = null;
-    var response =
-        await http.post("http://10.0.2.2:8080/api/login", body: data);
-    if (response.statusCode == 200) {
-      jsondata = json.decode(response.body);
-      if (jsondata != null) {
-        setState(() {
-          isLoading = false;
+  // login(String username, password) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   Map data = {'username': username, 'password': password};
+  //   var jsondata = null;
+  //   var response =
+  //       await http.post("http://10.0.2.2:8080/api/login", body: data);
+  //   if (response.statusCode == 200) {
+  //     jsondata = json.decode(response.body);
+  //     if (jsondata != null) {
+  //       setState(() {
+  //         isLoading = false;
 
-          sharedPreferences.setString("token", jsondata['token']);
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (BuildContext context) => MyApp()),
-              (Route<dynamic> route) => false);
-        });
-      } else {
-        print(response.body);
-      }
-    }
-  }
+  //         sharedPreferences.setString("token", jsondata['token']);
+  //         Navigator.of(context).pushAndRemoveUntil(
+  //             MaterialPageRoute(builder: (BuildContext context) => MyApp()),
+  //             (Route<dynamic> route) => false);
+  //       });
+  //     } else {
+  //       print(response.body);
+  //     }
+  //   }
+  // }
 
   Container bottonSection() {
     return Container(
       width: 330,
       child: RaisedButton(
         onPressed: () {
-          setState(() {
-            isLoading = true;
-          });
-          login(usernameController.text, passwordController.text);
+          login();
+          // setState(() {
+          //   isLoading = true;
+          // });
+          // login(usernameController.text, passwordController.text);
         },
         padding: EdgeInsets.all(10),
         color: Color(0xffc8404d),
