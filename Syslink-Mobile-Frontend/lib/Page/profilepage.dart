@@ -1,4 +1,3 @@
-import 'package:checkin/Page/Login.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -194,7 +193,11 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 430, left: 10, right: 10),
             width: double.maxFinite,
             child: InkWell(
-              onTap: () => {},
+              onTap: () => {
+              // sharedPreferences.clear();
+              // sharedPreferences.commit();
+              // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+              },
               child: Card(
                 child: Container(
                   height: 80,
