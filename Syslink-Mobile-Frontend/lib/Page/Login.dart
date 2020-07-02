@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'package:checkin/main.dart';
-// import 'package:checkin/models/user_model.dart';
+// import 'package:checkin/main.dart';
+//import 'package:checkin/models/user_model.dart';
 // import 'package:dio/dio.dart';
 // import 'package:logger/logger.dart';
-// import 'package:checkin/main.dart';
 import 'package:flutter/material.dart';
-// import 'dart:async';
+import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,15 +16,24 @@ class LoginPage extends StatefulWidget {
 class _Login extends State<LoginPage> {
   bool isLoading = false;
   // final logger = Logger();
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //List<User> list = List();
+  // List<User> list = List();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  String message = '';
 
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   // Future<List<User>> login() async {
-  //   //var data = await http.get("http://10.0.2.2:8080/api/login");
-  //   //var jsonData = json.decode(data.body);
+  //   var data = await http.get("http://10.0.2.2:8080/api/login");
+  //   var jsonData = json.decode(data.body);
+
+  //   print(jsonData);
 
   //   if (_formKey.currentState.validate()) {
   //     setState(() {
@@ -37,13 +44,13 @@ class _Login extends State<LoginPage> {
   //   Dio dio = Dio();
   //   dio.options.headers['content-Type'] = 'application/json';
 
-  //   Response response = await dio.post(
-  //     "http://10.0.2.2:8080/api/login",
-  //     data: {
-  //       "username": usernameController.text.trim(),
-  //       "password": passwordController.text.trim(),
-  //     },
-  //   );
+  // Response response = await dio.post(
+  //   "http://10.0.2.2:8080/api/login",
+  //   data: {
+  //     "username": usernameController.text.trim(),
+  //     "password": passwordController.text.trim(),
+  //   },
+  // );
 
   //   print(response.statusCode);
 
@@ -58,26 +65,18 @@ class _Login extends State<LoginPage> {
 
   //     }
   //   }
-  // }
+  //}
 
-  // Future<List> _login() async {
-  //   final response = await http.post("http://10.0.2.2:8080/api/login", body: {
-  //     "username": usernameController.text,
-  //     "password": passwordController.text,
-  //   });
+  Future<List> login() async {
+    String url = "http://10.0.2.2:8080/api/login";
+    final response = await http.post(url, body: {
+      "username": usernameController.text,
+      "password": passwordController.text,
+    });
 
-  //   var datauser = json.decode(response.body);
-
-  //   if (datauser.length == 0) {
-  //     setState(() {
-  //       msg = "Login Fail";
-  //     });
-  //   } else {
-  //     if (datauser[0]['name'] == 'test1') {
-  //       Navigator.pushReplacementNamed(context, '/Homepage');
-  //     }
-  //   }
-  // }
+    var datauser = jsonDecode(response.body);
+    return datauser;
+  }
 
   // @override
   // void initState() {
@@ -85,24 +84,25 @@ class _Login extends State<LoginPage> {
   //   super.initState();
   // }
 
-  Future<void> login() async {
-    print('get data');
-    var response = await http.get("http://10.0.2.2:8080/api/login");
-    print(response.body);
+  // Future<void> login() async {
+  //   print('get data');
+  //   var getdata = await http.get("http://10.0.2.2:8080/api/login");
+  //   print(getdata.body);
 
-    // var datauser = jsonDecode(response.body);
-    // print(datauser);
+  // var datauser = jsonDecode(response.body);
+  // print(datauser);
 
-    //String url = "http://10.0.2.2:8080/api/login";
-    //Dio dio = Dio();
-    // Response response = await dio.post(
-    //   url,
-    //   data: {
-    //     "username": usernameController.text.trim(),
-    //     "password": passwordController.text.trim(),
-    //   },
-    // );
-  }
+  // String url = "http://10.0.2.2:8080/api/login";
+  // Dio dio = Dio();
+  // Response response = await dio.post(
+  //   url,
+  //   data: {
+  //     "username": usernameController.text.trim(),
+  //     "password": passwordController.text.trim(),
+  //   },
+  // );
+  // print(response);
+  //}
 
   // if (response.statusCode == 200) {
   //   jsonResponse = json.decode(response.body);
@@ -188,12 +188,16 @@ class _Login extends State<LoginPage> {
     return Container(
       width: 330,
       child: RaisedButton(
-        onPressed: () {
-          login();
-          // setState(() {
-          //   isLoading = true;
-          // });
-          // login(usernameController.text, passwordController.text);
+        onPressed: () async {
+          if (_formKey.currentState.validate()) {
+            // var username = usernameController.text;
+            // var password = passwordController.text;
+
+            setState(() {
+              message = 'Please Wait..';
+            });
+            //var rsp = await User(username:"6000001",password: "");
+          }
         },
         padding: EdgeInsets.all(10),
         color: Color(0xffc8404d),
@@ -209,6 +213,7 @@ class _Login extends State<LoginPage> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500),
             ),
+            Text(message),
           ],
         ),
       ),

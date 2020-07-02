@@ -1,4 +1,5 @@
 import 'package:checkin/DateTime/hexClock.dart';
+//import 'package:checkin/Page/Login.dart';
 import 'package:checkin/Widgets/button_check.dart';
 import 'package:checkin/Widgets/checkin_card.dart';
 import 'package:checkin/Widgets/checkout_card.dart';
@@ -6,6 +7,9 @@ import 'package:checkin/Widgets/choose_project.dart';
 import 'package:checkin/Widgets/location.dart';
 import 'package:checkin/Widgets/refrech.dart';
 import 'package:flutter/material.dart';
+import 'package:buddhist_datetime_dateformat/buddhist_datetime_dateformat.dart';
+// import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // bool loggedIn = false;
+  //bool loggedIn = false;
 
   // @override
   // void initState() {
@@ -27,6 +31,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    //var toShow = now.yearInBuddhistCalendar;
+
+    var formatter = DateFormat.yMMMMEEEEd();
+    // var showDate = formatter.formatInBuddhistCalendarThai(now);
+    var _showDate = formatter.formatInBuddhistCalendarThai(now);
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -99,7 +110,18 @@ class _HomePageState extends State<HomePage> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: Column(
                         children: <Widget>[
-                          //Date(),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "$_showDate",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Prompt',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
                           Row(
                             children: <Widget>[
                               SimpleClock(),
