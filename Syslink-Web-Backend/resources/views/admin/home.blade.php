@@ -167,11 +167,10 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
           <div class="row mb-2">
             <div class="col-sm-12">
               <h1>ตารางข้อมูลเวลา เข้า - ออก
-                <button type="button" class="btn btn-outline-primary float-right" data-toggle="modal"
-                  data-target="#addmodal">
-                  Export Data
-                  <i class="fa fa-upload "></i>
-                </button>
+                <div class="float-right" id="buttons"></div>
+                <div class="float-right text-primary" style="margin-top: 10px;margin-right: 5px">
+                  <h6><strong><u>Export as</u></strong>&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp;</h6>
+                </div>
               </h1>
             </div>
           </div>
@@ -201,7 +200,7 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
                         <th>โปรเจค</th>
                         <th>ประเภท</th>
                         <th>รูป</th>
-                        <th>หมายเหตุ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th>หมายเหตุ : </th>
 
 
                       </tr>
@@ -273,7 +272,14 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- DataTables -->
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.flash.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <!-- AdminLTE App -->
@@ -283,9 +289,11 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
   <!-- page script -->
   <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
   <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+
   <script>
     $(document).ready(function () {  
-      $("#attendancetable").DataTable({
+      
+      var table = $("#attendancetable").DataTable({
         responsive: {
             details: {
                 type: 'column',
@@ -339,9 +347,15 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
         autoWidth: false,
         oLanguage: {
           sSearch: "ค้นหา : ",
-          sLengthMenu: "แสดง _MENU_ แถว",
         },
+        buttons: [
+          'excel','print'
+        ],
       });
+      table.buttons().container().appendTo($('#buttons'));
+
+  
+
       $('.desbtn').on('click',function(){
       $('#descriptionmodal').modal('show');
         $tr = $(this).closest('tr');
@@ -357,6 +371,10 @@ FROM attendance_histories h INNER JOIN employees e ON h.employee_id = e.id
       $(this).ekkoLightbox({
         alwaysShowClose: true
       });
+    });
+
+    $('.buttons-excel, .buttons-print').each(function() {
+      $(this).removeClass('btn-default').addClass('btn-primary')
     });
   </script>
 </body>
