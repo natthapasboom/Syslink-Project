@@ -3,9 +3,10 @@ import 'package:checkin/DateTime/hexClock.dart';
 import 'package:checkin/Widgets/button_check.dart';
 import 'package:checkin/Widgets/checkin_card.dart';
 import 'package:checkin/Widgets/checkout_card.dart';
-import 'package:checkin/Widgets/choose_project.dart';
-import 'package:checkin/Widgets/location.dart';
-import 'package:checkin/Widgets/refrech.dart';
+// import 'package:checkin/Widgets/choose_project.dart';
+// import 'package:checkin/Widgets/location.dart';
+import 'package:checkin/Widgets/re_location.dart';
+// import 'package:checkin/Widgets/refrech.dart';
 import 'package:flutter/material.dart';
 import 'package:buddhist_datetime_dateformat/buddhist_datetime_dateformat.dart';
 // import 'package:intl/date_symbol_data_local.dart';
@@ -130,16 +131,16 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: 10),
                           Row(
                             children: <Widget>[
-                              Location(),
+                              ReLocation(),
                             ],
                           ),
-                          SizedBox(height: 15),
-                          Row(
-                            children: <Widget>[
-                              Refrech(),
-                              ChooseProject(),
-                            ],
-                          ),
+                          // SizedBox(height: 15),
+                          // Row(
+                          //   children: <Widget>[
+                          //     Refrech(),
+                          //     ChooseProject(),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
@@ -168,6 +169,7 @@ class _HomePageState extends State<HomePage> {
             CheckoutCard(),
             CheckinCard(),
           ],
+          
         ),
       ),
     );
